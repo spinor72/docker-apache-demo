@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+
+  httpd:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+       - HTTPD_CRT=${HTTPD_CRT}
+       - HTTPD_KEY=${HTTPD_KEY}
+       - HTTPD_DOCS_PATH=${HTTPD_DOCS_PATH}
+       - HTTPD_APACHE_VERSION=${HTTPD_APACHE_VERSION}
+
+    image: ${USER_NAME}/httpd:${HTTPD_VERSION}
+    ports:
+     - '${HTTPD_PORT}:443'
+    networks:
+      net_front:
+        aliases:
+          - httpd
+
+networks:
+
+  net_front:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.0.1.0/24

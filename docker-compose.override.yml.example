@@ -1,0 +1,7 @@
+version: '3.3'
+services:
+  httpd:
+    volumes:
+      - ./src2:/usr/local/apache2/htdocs/
+      - ./server2.key:/usr/local/apache2/conf/server.key
+      - ./server2.crt:/usr/local/apache2/conf/server.crt
